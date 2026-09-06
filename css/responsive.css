@@ -1,0 +1,186 @@
+/* ============================================
+   RESPONSIVE.CSS — Mobile-first Responsive
+   ============================================ */
+
+/* --- Mobile First (default = mobile) --- */
+
+/* Show mobile progress, hide desktop timeline */
+@media (max-width: 767px) {
+  .mobile-progress {
+    display: block;
+  }
+
+  .timeline-progress {
+    display: none !important;
+  }
+
+  .split-screen {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .card-grid--2col {
+    grid-template-columns: 1fr;
+  }
+
+  .music-player {
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    padding: 6px 12px;
+  }
+
+  .music-player__label {
+    display: none;
+  }
+
+  .music-player__progress {
+    width: 30px;
+  }
+
+  .letter {
+    padding: var(--space-md);
+  }
+
+  .sworn-choice {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sworn-choice__btn {
+    width: 100%;
+  }
+
+  .notification {
+    max-width: 90%;
+    top: var(--space-sm);
+  }
+
+  .saisha-os {
+    padding: var(--space-md);
+  }
+
+  .oda-lage-player {
+    padding: var(--space-md);
+  }
+
+  .clown-timeline {
+    gap: var(--space-xs);
+  }
+
+  .clown-timeline__item {
+    padding: 4px 6px;
+  }
+
+  .easter-egg {
+    padding: var(--space-md);
+  }
+
+  .lock-screen__icon {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+  }
+
+  .chapter {
+    padding: clamp(2rem, 8vh, 4rem) clamp(1rem, 4vw, 1.5rem);
+  }
+}
+
+/* --- Tablet --- */
+@media (min-width: 768px) {
+  .mobile-progress {
+    display: none !important;
+  }
+
+  .chapter__content {
+    max-width: 680px;
+  }
+}
+
+/* --- Desktop --- */
+@media (min-width: 1024px) {
+  .chapter__content {
+    max-width: 720px;
+  }
+
+  .split-screen {
+    max-width: 900px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .music-player__progress {
+    width: 70px;
+  }
+}
+
+/* --- Large Desktop --- */
+@media (min-width: 1440px) {
+  .chapter__content {
+    max-width: 780px;
+  }
+}
+
+/* --- Touch device optimizations --- */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .btn {
+    min-height: 48px;
+    padding: 14px 28px;
+  }
+
+  .btn--small {
+    min-height: 40px;
+    padding: 10px 20px;
+  }
+
+  .sworn-choice__btn {
+    min-height: 52px;
+  }
+
+  .reveal-btn {
+    min-height: 52px;
+  }
+
+  .music-player__btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .burning-card {
+    min-height: 52px;
+  }
+
+  .future-memory {
+    min-height: 52px;
+  }
+
+  /* Remove hover effects that don't work on touch */
+  .memory-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-card);
+  }
+
+  .btn--primary:hover {
+    transform: none;
+  }
+}
+
+/* --- Short viewport --- */
+@media (max-height: 600px) {
+  .chapter--full {
+    min-height: auto;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .lock-screen {
+    overflow-y: auto;
+  }
+}
+
+/* --- High DPI --- */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body::after {
+    opacity: 0.02;
+  }
+}

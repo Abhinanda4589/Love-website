@@ -1,0 +1,193 @@
+/* ============================================
+   ANIMATIONS.CSS — Keyframes & Animation Classes
+   ============================================ */
+
+/* --- Fade Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- Text Animations --- */
+@keyframes textReveal {
+  from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--color-rose); }
+}
+
+/* --- Glow / Pulse --- */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes heartbeatGlow {
+  0%, 100% { opacity: 0.15; box-shadow: 0 0 40px rgba(196, 112, 126, 0.1); }
+  25% { opacity: 0.35; box-shadow: 0 0 80px rgba(196, 112, 126, 0.25); }
+  35% { opacity: 0.15; box-shadow: 0 0 40px rgba(196, 112, 126, 0.1); }
+  50% { opacity: 0.3; box-shadow: 0 0 60px rgba(196, 112, 126, 0.2); }
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+  60% { transform: translateY(-3px); }
+}
+
+/* --- Lock / Key --- */
+@keyframes lockShake {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-5deg); }
+  30% { transform: rotate(5deg); }
+  45% { transform: rotate(-3deg); }
+  60% { transform: rotate(3deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+@keyframes keyGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 165, 116, 0.4)); }
+  50% { filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.8)); }
+}
+
+@keyframes unlockBurst {
+  0% { transform: scale(0); opacity: 1; }
+  60% { transform: scale(1.5); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* --- Card Burn --- */
+@keyframes cardBurn {
+  0% { clip-path: inset(0 0 0 0); filter: brightness(1); }
+  30% { clip-path: inset(0 0 0 0); filter: brightness(1.3) sepia(0.3); }
+  60% { clip-path: inset(40% 5% 0 5%); filter: brightness(1.8) sepia(0.6); }
+  100% { clip-path: inset(100% 20% 0 20%); filter: brightness(2) sepia(1); opacity: 0; }
+}
+
+@keyframes emberFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) translateX(20px) scale(0.3); }
+}
+
+/* --- Snow dissolve --- */
+@keyframes snowDissolve {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(2); filter: blur(4px); }
+}
+
+/* --- Counter / Number --- */
+@keyframes countReveal {
+  from { opacity: 0; transform: translateY(40px) scale(0.8); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Notification --- */
+@keyframes notificationSlideIn {
+  from { transform: translateY(-100%) scale(0.9); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes notificationBounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+/* --- Split merge --- */
+@keyframes mergeLeft {
+  from { transform: translateX(-20%); opacity: 0.7; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes mergeRight {
+  from { transform: translateX(20%); opacity: 0.7; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* --- Progress bar fill --- */
+@keyframes progressFill {
+  from { width: 0; }
+  to { width: var(--progress-width, 80%); }
+}
+
+/* --- Sparkle --- */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+/* --- Celebratory pop --- */
+@keyframes celebratePop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- Scroll-triggered animation classes --- */
+.anim-hidden {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity var(--duration-slow) var(--ease-cinematic),
+              transform var(--duration-slow) var(--ease-cinematic);
+}
+
+.anim-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.anim-hidden-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity var(--duration-slow) var(--ease-cinematic),
+              transform var(--duration-slow) var(--ease-cinematic);
+}
+
+.anim-visible-scale {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for sequential reveals */
+.anim-delay-1 { transition-delay: 100ms; }
+.anim-delay-2 { transition-delay: 250ms; }
+.anim-delay-3 { transition-delay: 400ms; }
+.anim-delay-4 { transition-delay: 550ms; }
+.anim-delay-5 { transition-delay: 700ms; }
+.anim-delay-6 { transition-delay: 850ms; }
+.anim-delay-7 { transition-delay: 1000ms; }
+.anim-delay-8 { transition-delay: 1150ms; }

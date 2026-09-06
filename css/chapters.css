@@ -1,0 +1,339 @@
+/* ============================================
+   CHAPTERS.CSS — Chapter-specific Styles
+   ============================================ */
+
+/* --- Opening / Chapter 00 --- */
+.ch-opening {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.ch-opening__intro-text {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-dim);
+  text-align: center;
+  line-height: var(--lh-relaxed);
+  opacity: 0;
+}
+
+.ch-opening__intro-text.visible {
+  animation: textReveal 1.2s var(--ease-cinematic) forwards;
+}
+
+.ch-opening__date-range {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+.ch-opening__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-hero);
+  font-weight: var(--fw-light);
+  color: var(--color-warm-white);
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* --- Sworn Brother selection --- */
+.sworn-choice {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sworn-choice__btn {
+  padding: 16px 32px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.sworn-choice__btn:hover {
+  border-color: rgba(196, 112, 126, 0.3);
+  color: var(--color-warm-white);
+  transform: translateY(-2px);
+}
+
+.sworn-choice__btn--correct {
+  /* Only applied on click */
+}
+
+.sworn-choice__btn.selected {
+  background: linear-gradient(135deg, rgba(196, 112, 126, 0.15) 0%, rgba(212, 165, 116, 0.1) 100%);
+  border-color: var(--color-rose);
+  color: var(--color-warm-white);
+}
+
+.sworn-choice__result {
+  text-align: center;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all var(--duration-slow) var(--ease-cinematic);
+}
+
+.sworn-choice__result.visible {
+  opacity: 1;
+  height: auto;
+  margin-top: var(--space-md);
+}
+
+/* --- Transformation (sworn → lovers) --- */
+.transformation {
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+.transformation__from {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-dim);
+  transition: all var(--duration-cinematic) var(--ease-cinematic);
+}
+
+.transformation__from.fading {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.transformation__to {
+  font-family: var(--font-serif);
+  font-size: var(--fs-section-title);
+  color: var(--color-rose);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--duration-cinematic) var(--ease-cinematic);
+}
+
+.transformation__to.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Oda Lage Music Feature --- */
+.oda-lage-player {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  max-width: 420px;
+  width: 100%;
+  margin: var(--space-lg) auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.oda-lage-player::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(196, 112, 126, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.oda-lage-player__icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.oda-lage-player__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-section-title);
+  color: var(--color-warm-white);
+}
+
+.oda-lage-player__subtitle {
+  font-size: var(--fs-small);
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+/* --- Saisha Corporation Dashboard --- */
+.saisha-os {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  max-width: 500px;
+  width: 100%;
+}
+
+.saisha-os__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.saisha-os__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.saisha-os__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.saisha-os__dot--red { background: #ff5f57; }
+.saisha-os__dot--yellow { background: #febc2e; }
+.saisha-os__dot--green { background: #28c840; }
+
+.saisha-os__title {
+  font-size: var(--fs-small);
+  color: var(--color-text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.saisha-os__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.saisha-os__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  margin: var(--space-sm) 0;
+}
+
+/* --- Skincare / Medicine Cards --- */
+.care-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.care-card__title {
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-body);
+  color: var(--color-warm-white);
+  margin-bottom: 4px;
+}
+
+.care-card__description {
+  font-size: var(--fs-small);
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+/* --- Birthday Gift Reveal --- */
+.gift-reveal {
+  text-align: center;
+}
+
+.gift-reveal__number {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  color: var(--color-text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+/* --- Apology burn area --- */
+.burn-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 500px;
+}
+
+.burn-area__card-wrapper {
+  position: relative;
+}
+
+.burn-area__reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.burn-area__reveal.visible {
+  opacity: 1;
+  animation: fadeInUp 0.8s var(--ease-cinematic);
+  position: relative;
+}
+
+/* --- Final Cinematic Sequence --- */
+.cinematic-sequence {
+  text-align: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+.cinematic-sequence__line {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body-lg);
+  color: var(--color-text-dim);
+  opacity: 0;
+}
+
+.cinematic-sequence__line.visible {
+  animation: textReveal 1s var(--ease-cinematic) forwards;
+}
+
+.cinematic-sequence__date {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.cinematic-sequence__hero {
+  font-family: var(--font-serif);
+  font-size: var(--fs-hero);
+  color: var(--color-rose);
+  font-weight: var(--fw-light);
+}
+
+.cinematic-sequence__subtitle {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+/* --- Easter egg heart button --- */
+.secret-heart {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  transition: transform var(--duration-fast) var(--ease-bounce);
+}
+
+.secret-heart:active {
+  transform: scale(0.9);
+}

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>17 Months of Us — For Bubu, From Dudu</title>
+  <meta name="description" content="An interactive romantic anniversary experience celebrating 17 months of us. For Saisha, from Dudu.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/environments.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/chapters.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-environment="lock">
+
+  <!-- ============================================
+       BACKGROUND & ATMOSPHERIC LAYERS
+       ============================================ -->
+  <canvas id="particle-canvas"></canvas>
+  <div id="environment-overlay"></div>
+
+  <!-- Ambient Glow Elements -->
+  <div class="ambient-glow ambient-glow--heartbeat"></div>
+  <div class="ambient-glow ambient-glow--warm-center"></div>
+  <div class="ambient-glow ambient-glow--ember"></div>
+  <div class="ambient-glow ambient-glow--dawn"></div>
+  <div class="atmosphere-mist atmosphere-mist--winter"></div>
+  <div class="atmosphere-mist atmosphere-mist--warm"></div>
+  <div class="heat-distortion"></div>
+  <div class="spotlight spotlight--center"></div>
+
+
+  <!-- ============================================
+       FIXED OVERLAYS & CONTROLS
+       ============================================ -->
+
+  <!-- Mobile Progress Pill (e.g. 01 / 27) -->
+  <div class="mobile-progress" aria-hidden="true">01 / 27</div>
+
+  <!-- Desktop Vertical Timeline Dots -->
+  <nav class="timeline-progress" aria-label="Story Timeline"></nav>
+
+  <!-- Fixed Mini Music Player -->
+  <aside class="music-player" role="region" aria-label="Audio player">
+    <button class="music-player__btn music-player__btn--play" aria-label="Play or pause background music">▶</button>
+    <div class="music-player__progress" title="Audio progress">
+      <div class="music-player__progress-fill"></div>
+    </div>
+    <span class="music-player__label">Oda Lage</span>
+  </aside>
+
+  <!-- Secret Confession Easter Egg Modal -->
+  <div class="easter-egg" id="easter-egg-modal" role="dialog" aria-modal="true">
+    <button class="btn btn--ghost easter-egg__close" aria-label="Close modal">✕</button>
+    <div class="lock-screen__burst active"></div>
+    <span class="emoji-reaction">🤫</span>
+    <h3 style="font-family: var(--font-serif); font-size: var(--fs-section-title); color: var(--color-gold); margin: var(--space-sm) 0;">
+      DUDU'S SECRET CONFESSION
+    </h3>
+    <p style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-secondary); max-width: 480px; line-height: 1.8;">
+      Okay fine. I act all tough and unbothered...<br>
+      But the moment you call me <strong style="color: var(--color-rose); font-size: 1.4rem;">"BACCHA"</strong>,<br>
+      my entire personality completely dissolves. 🥺<br>
+      <small style="color: var(--color-text-dim); display: block; margin-top: 10px;">(And please, never tell anyone.)</small>
+    </p>
+    <div style="margin-top: var(--space-md);">
+      <button class="btn btn--primary" id="hug-reveal-btn">CLAIM A REAL HUG 🫂</button>
+      <p id="hug-reveal-text" style="display: none; margin-top: var(--space-sm); font-family: var(--font-serif); font-style: italic; color: var(--color-rose-soft);">
+        Saved for the exact second we finally meet in person. ❤️
+      </p>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal for Full-Screen View -->
+  <div class="image-lightbox" id="image-lightbox-modal" role="dialog" aria-modal="true">
+    <button class="image-lightbox__close" aria-label="Close image">✕</button>
+    <img class="image-lightbox__img" src="" alt="Enlarged memory">
+    <div class="image-lightbox__caption"></div>
+  </div>
+
+
+  <!-- ============================================
+       00. OPENING INTERACTIVE LOCK SCREEN
+       ============================================ -->
+  <div class="lock-screen">
+    <div class="lock-screen__icon">
+      <span class="lock-screen__lock">🔒</span>
+      <span class="lock-screen__key" title="Tap to unlock">🗝️</span>
+      <div class="lock-screen__burst"></div>
+    </div>
+    <h1 class="lock-screen__text">There's a story waiting inside.</h1>
+    <p class="lock-screen__subtitle">Tap the golden key to unlock our world</p>
+    <div style="margin-top: var(--space-lg);">
+      <button class="btn btn--ghost btn--small" id="unlock-fallback-btn">Just unlock it ♡</button>
+    </div>
+  </div>
+
+  <!-- 00B. POST-UNLOCK MUSIC ONBOARDING SCREEN -->
+  <div class="music-intro">
+    <div class="music-intro__headphones">🎧</div>
+    <h2 class="music-intro__text">Put on your headphones.</h2>
+    <p class="music-intro__subtext">This experience was built with sound, memories, and love for you.</p>
+    <button class="btn btn--primary" id="begin-story-btn">BEGIN OUR STORY ♡</button>
+  </div>
+
+
+  <!-- ============================================
+       MAIN STORY CHAPTERS (01 - 27)
+       ============================================ -->
+  <main id="story-main">
+
+    <!-- CHAPTER 01: Night Sky / Kiss Kiss -->
+    <section class="chapter chapter--full" id="ch01" data-environment="night">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">FEBRUARY 2024 · THE BEGINNING</span>
+        <h2 class="ch-opening__title anim-hidden anim-delay-1">Before You Were My Love</h2>
+        <p class="lead-quote anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-style: italic; color: var(--color-rose-soft);">
+          "Before you were my girlfriend, you were my sworn sister."
+        </p>
+
+        <div class="chapter-text anim-hidden anim-delay-3" style="margin: var(--space-sm) 0; line-height: 1.9;">
+          <p>I met you around February 2024 on a game called Kiss Kiss.</p>
+          <p>At that time, I was in a relationship with someone else.</p>
+          <p>You were just someone I had met across a digital table.</p>
+          <p>Then one day you said you wanted a sworn brother, just like Radha had Humane.</p>
+        </div>
+
+        <!-- Application UI Card -->
+        <div class="application-ui anim-hidden-scale anim-delay-4" title="Click to stamp approval">
+          <div class="application-ui__row">
+            <span class="application-ui__label">Applicant</span>
+            <span class="application-ui__value">Dudu</span>
+          </div>
+          <div class="application-ui__row">
+            <span class="application-ui__label">Position</span>
+            <span class="application-ui__value">Bubu's Sworn Brother</span>
+          </div>
+          <div class="application-ui__row">
+            <span class="application-ui__label">Decision</span>
+            <span class="application-ui__status">ACCEPTED ✓</span>
+          </div>
+        </div>
+
+        <div class="memory-card anim-hidden anim-delay-5" style="max-width: 480px; margin-top: var(--space-md);">
+          <div class="memory-card__media">
+            <img src="memories/us as the best bro sis combo.jpeg" alt="Us as the best bro sis combo" loading="lazy">
+          </div>
+          <div class="memory-card__caption">Us as the best bro sis combo — where everything quietly began.</div>
+        </div>
+
+        <div class="memory-card anim-hidden anim-delay-6" style="max-width: 480px; margin-top: var(--space-sm);">
+          <div class="memory-card__media">
+            <img src="memories/she cared for me when i was her brother.jpeg" alt="She cared for me when I was her brother" loading="lazy">
+          </div>
+          <div class="memory-card__caption">She cared for me when I was her brother.</div>
+        </div>
+
+        <div class="anim-hidden anim-delay-6" style="margin-top: var(--space-md); font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-secondary);">
+          <p>And just like that…</p>
+          <p style="color: var(--color-warm-white); font-weight: 500;">You became my sworn sister.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 02: Twilight / Important to each other -->
+    <section class="chapter" id="ch02" data-environment="twilight">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden">FOUNDATION</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          We Didn't Fall In Love First.
+        </h2>
+        <p class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold-soft);">
+          We became important to each other first.
+        </p>
+
+        <div class="card-grid anim-hidden anim-delay-3" style="margin: var(--space-md) 0;">
+          <div class="care-card">
+            <div class="care-card__title">I Listened</div>
+            <div class="care-card__description">I helped you through your relationships when things felt heavy.</div>
+          </div>
+          <div class="care-card">
+            <div class="care-card__title">A Shoulder to Cry On</div>
+            <div class="care-card__description">When you needed someone in the quiet hours, I tried to be there.</div>
+          </div>
+        </div>
+
+        <p class="anim-hidden anim-delay-4" style="font-style: italic; color: var(--color-text-secondary);">
+          "When people you trusted hurt you, I stayed."
+        </p>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-5" style="margin-top: var(--space-md);">
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/i care for her when she was my sis.jpeg" alt="I cared for her when she was my sister" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"I cared for her when she was my sister."</div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/Helping in her relationship1.jpeg" alt="Helping in her relationship" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"Being there when things were heavy."</div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/helping in her relationship2.jpeg" alt="Listening through difficult times" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"Listening through the tears."</div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/Helping in her relationsip3.jpeg" alt="When people you trusted hurt you, I stayed" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"When people you trusted hurt you, I stayed."</div>
+          </div>
+        </div>
+
+        <div class="anim-hidden anim-delay-6" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-secondary);">
+          <p>Before I loved you…</p>
+          <p style="color: var(--color-gold); font-size: var(--fs-section-title);">I cared about you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 03: Amber / Lost Each Other -->
+    <section class="chapter" id="ch03" data-environment="amber">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">THE FRACTURE</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          Then We Lost Each Other.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="line-height: 2; color: var(--color-text-secondary); max-width: 540px;">
+          <p>Things became complicated.</p>
+          <p>Jealousy. Misunderstandings. Other people. Bad decisions.</p>
+          <p style="color: var(--color-warm-white); font-weight: 500;">You stopped talking to me.</p>
+        </div>
+
+        <div class="care-card anim-hidden anim-delay-3" style="max-width: 540px; text-align: left; border-left: 2px solid var(--color-rose-dim); margin: var(--space-md) 0;">
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-primary); line-height: 1.8;">
+            My relationship fell apart too. And I wasn't innocent.<br>
+            I made choices that hurt people. I was unfaithful. I cheated.<br>
+            <strong>I own that.</strong>
+          </p>
+        </div>
+
+        <div class="section-divider"></div>
+        <p class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-dim);">
+          Everything fell apart.
+        </p>
+      </div>
+    </section>
+
+    <!-- CHAPTER 04: Cold Dark / Four Months -->
+    <section class="chapter chapter--full" id="ch04" data-environment="cold">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">THE SILENCE</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title); color: #8ba0b8;">
+          I Lost Myself Too.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 2; color: #6d7f94;">
+          <p>For around four months, I felt completely broken.</p>
+          <p>Everything felt empty and quiet in all the wrong ways.</p>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="margin-top: var(--space-xl); font-family: var(--font-serif);">
+          <p style="font-size: var(--fs-body-lg); color: var(--color-text-dim);">Then…</p>
+          <p style="font-size: var(--fs-section-title); color: var(--color-warm-white); margin-top: var(--space-xs);">
+            You came back.
+          </p>
+          <p style="font-size: var(--fs-body); color: var(--color-rose-soft); font-style: italic;">
+            You came back into my life.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 05: Void / Heartbeat -->
+    <section class="chapter" id="ch05" data-environment="void">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">THE RETURN</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          You Found Me When I Couldn't Find Myself.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 2; color: var(--color-text-secondary); margin: var(--space-md) 0;">
+          <p>You made me laugh again.</p>
+          <p>You made me happy again.</p>
+          <p>You helped me feel like myself again.</p>
+        </div>
+
+        <div class="care-card anim-hidden anim-delay-3" style="max-width: 500px; text-align: center; border: 1px solid rgba(196, 112, 126, 0.2);">
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-rose-soft); font-style: italic;">
+            "You even tried to convince Mishti to come back to me…<br>
+            …while you yourself loved me."
+          </p>
+        </div>
+
+        <div class="memory-card anim-hidden anim-delay-4" style="max-width: 440px; margin: var(--space-md) auto;">
+          <div class="memory-card__media">
+            <img src="memories/Long call.jpeg" alt="Late night long call" loading="lazy">
+          </div>
+          <div class="memory-card__caption">"Those long calls that quietly put me back together."</div>
+        </div>
+
+        <div class="anim-hidden anim-delay-5" style="margin-top: var(--space-md); font-family: var(--font-serif); color: var(--color-text-dim);">
+          <p>I don't think I understood the size of your heart back then.</p>
+          <p style="color: var(--color-warm-white); font-size: var(--fs-body-lg); margin-top: 4px;">But I understand it now.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 06: Warming Light / The Soft Heart -->
+    <section class="chapter" id="ch06" data-environment="warming">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden">WHO YOU ARE</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          You Have One Of The Softest Hearts I Know.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body); line-height: 2; color: var(--color-text-secondary);">
+          <p>✦ You can give everything you have when someone needs it.</p>
+          <p>✦ You can cry simply because someone else got hurt.</p>
+          <p>✦ You can be raging angry with me…</p>
+          <p style="color: var(--color-rose-soft); font-style: italic;">…until you find out I'm crying.</p>
+        </div>
+
+        <!-- Funny Dashboard Status -->
+        <div class="dashboard-card anim-hidden-scale anim-delay-3" style="margin: var(--space-md) 0; border: 1px solid rgba(196, 112, 126, 0.2);">
+          <div>
+            <span class="dashboard-card__label">Argument Status:</span>
+            <strong style="color: var(--color-rose); display: block; font-size: 1.1rem;">CANCELLED IMMEDIATELY</strong>
+          </div>
+          <span class="dashboard-card__status" style="color: var(--color-text-dim); font-style: italic;">Reason: Dudu started crying 😭</span>
+        </div>
+
+        <div class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold-soft); line-height: 1.8;">
+          <p>That's the kind of heart you have.</p>
+          <p style="color: var(--color-warm-white);">Soft. Kind. Protective. Almost painfully forgiving.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 07: Winter Snow / Somewhere Along The Way -->
+    <section class="chapter" id="ch07" data-environment="winter">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">THE SHIFT</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          Somewhere Along The Way…
+        </h2>
+
+        <div class="transformation anim-hidden-scale anim-delay-2">
+          <div class="transformation__from" style="opacity: 0.6; text-decoration: line-through;">
+            SWORN BROTHER + SWORN SISTER
+          </div>
+          <div style="font-size: 1.8rem; margin: var(--space-xs) 0;">↓</div>
+          <div class="transformation__to visible" style="opacity: 1; transform: scale(1.1); color: var(--color-rose);">
+            BUBU <span class="secret-heart secret-heart-trigger" title="Tap heart">❤️</span> DUDU
+          </div>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 2; color: var(--color-text-secondary); max-width: 520px;">
+          <p>Somewhere between all the late night conversations…</p>
+          <p>all the chaos…</p>
+          <p>all the tears…</p>
+          <p>all the laughter…</p>
+          <p style="color: var(--color-warm-white); font-size: var(--fs-section-title); margin-top: var(--space-sm);">You became my love.</p>
+        </div>
+
+        <div class="anim-hidden anim-delay-4" style="margin-top: var(--space-md); padding: 8px 16px; background: rgba(255,255,255,0.04); border-radius: var(--radius-full);">
+          <small style="color: var(--color-text-dim);">❄️ Tip: Tap the snowflakes falling around you</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 08: The Date / April 5, 2025 -->
+    <section class="chapter chapter--full" id="ch08" data-environment="winter">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">ANNIVERSARY DAY</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: clamp(2.5rem, 8vw, 5rem); color: var(--color-rose); letter-spacing: 0.05em;">
+          05 · 04 · 2025
+        </h2>
+        <p class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold-soft); font-style: italic;">
+          From sworn siblings to lovers.
+        </p>
+
+        <div class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body); line-height: 1.9; color: var(--color-text-secondary); max-width: 500px; margin: var(--space-md) 0;">
+          <p>I don't know exactly when the line disappeared.</p>
+          <p>Maybe it happened slowly. Maybe we crossed it before we noticed.</p>
+          <p style="color: var(--color-warm-white); font-weight: 500;">But this became the day…</p>
+        </div>
+
+        <h3 class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-section-title); color: var(--color-warm-white); letter-spacing: 0.1em;">
+          WE BECAME US.
+        </h3>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-5" style="margin-top: var(--space-md);">
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/our first time1.jpeg" alt="Our first time" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"Our first time — when the line disappeared."</div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/our first time2.jpeg" alt="From siblings to lovers" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"The moment everything changed forever."</div>
+          </div>
+          <div class="memory-card" style="grid-column: 1 / -1; max-width: 520px; margin: 0 auto;">
+            <div class="memory-card__media">
+              <img src="memories/our special moment.jpeg" alt="Our special moment" loading="lazy">
+            </div>
+            <div class="memory-card__caption">"05 · 04 · 2025 — Our special moment."</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 09: Dreamy Night / Oda Lage -->
+    <section class="chapter" id="ch09" data-environment="dreamy">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">A SPECIAL SOUNDTRACK</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          The First Odia Song You Gave Me.
+        </h2>
+
+        <div class="oda-lage-player anim-hidden-scale anim-delay-2">
+          <div class="oda-lage-player__icon">🎶</div>
+          <div class="oda-lage-player__title">Oda Lage</div>
+          <div class="oda-lage-player__subtitle">Your favorite Odia actor · A love story you loved</div>
+          <p style="font-size: var(--fs-small); color: var(--color-text-secondary); margin-top: var(--space-sm);">
+            The melody that brought your world into mine.
+          </p>
+          <button class="btn btn--primary play-oda-lage-btn" style="margin-top: var(--space-md);">▶ PLAY ODA LAGE</button>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 1.9; color: var(--color-text-secondary); max-width: 520px;">
+          <p>An Odia song that belonged to your world.</p>
+          <p>And then… I loved it too.</p>
+          <p style="color: var(--color-rose-soft); font-style: italic; margin-top: var(--space-sm);">
+            "Maybe that's why this song feels different to me.<br>
+            I don't just hear music. I hear a little piece of you."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 10: Playful / Bubu & Dudu -->
+    <section class="chapter" id="ch10" data-environment="playful">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">UNAPOLOGETICALLY OURS</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          Okay. Enough Crying. 😂
+        </h2>
+        <p class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-section-title); color: var(--color-rose);">
+          BUBU <span class="secret-heart secret-heart-trigger">❤️</span> DUDU
+        </p>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-3" style="max-width: 520px; margin: var(--space-md) 0;">
+          <div class="nickname-card trigger-nunnu" title="Tap 3 times!">
+            <div class="nickname-card__label">What she calls me</div>
+            <div class="nickname-card__name">Dudu</div>
+            <small style="color: var(--color-text-dim);">(also: Nunnu 😭)</small>
+          </div>
+          <div class="nickname-card trigger-chutu" title="Tap 3 times!">
+            <div class="nickname-card__label">What I call her</div>
+            <div class="nickname-card__name">Bubu</div>
+            <small style="color: var(--color-text-dim);">(also: Chutu 😂)</small>
+          </div>
+        </div>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-4" style="max-width: 520px;">
+          <div class="care-card" style="text-align: center;">
+            <div style="font-size: var(--fs-label); color: var(--color-text-dim);">Her Soft Side</div>
+            <div style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold);">Baccha 🥺</div>
+          </div>
+          <div class="care-card" style="text-align: center;">
+            <div style="font-size: var(--fs-label); color: var(--color-text-dim);">My Soft Side</div>
+            <div style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-rose-soft);">Mumma 🥹</div>
+          </div>
+        </div>
+
+        <p class="anim-hidden anim-delay-5" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-secondary); margin-top: var(--space-md);">
+          All these silly little names… became home.
+        </p>
+
+        <div class="memory-card anim-hidden anim-delay-6" style="max-width: 440px; margin: var(--space-md) auto 0;">
+          <div class="memory-card__media">
+            <img src="memories/Saisha1.jpeg" alt="My Bubu Saisha" loading="lazy">
+          </div>
+          <div class="memory-card__caption">"The girl behind all these silly, beautiful names."</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 11: Dashboard / Saisha Corporation -->
+    <section class="chapter" id="ch11" data-environment="dashboard">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">EXECUTIVE SUMMARY</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          Girlfriend ❌ Full Corporation ✔️
+        </h2>
+
+        <!-- Saisha OS Window UI -->
+        <div class="saisha-os anim-hidden-scale anim-delay-2">
+          <div class="saisha-os__header">
+            <div class="saisha-os__dots">
+              <span class="saisha-os__dot saisha-os__dot--red"></span>
+              <span class="saisha-os__dot saisha-os__dot--yellow"></span>
+              <span class="saisha-os__dot saisha-os__dot--green"></span>
+            </div>
+            <span class="saisha-os__title">Saisha Corporation™ Operating System v17.0</span>
+          </div>
+
+          <div class="saisha-os__items">
+            <div class="dashboard-card"><span class="dashboard-card__label">🩺 On-Call Doctor</span><span class="dashboard-card__status">ACTIVE ✓</span></div>
+            <div class="dashboard-card"><span class="dashboard-card__label">✨ Chief Dermatologist</span><span class="dashboard-card__status">ACTIVE ✓</span></div>
+            <div class="dashboard-card"><span class="dashboard-card__label">📋 Executive Study Manager</span><span class="dashboard-card__status">ACTIVE ✓</span></div>
+            <div class="dashboard-card"><span class="dashboard-card__label">🎂 Head of Birthday Planning</span><span class="dashboard-card__status">ACTIVE ✓</span></div>
+            <div class="dashboard-card"><span class="dashboard-card__label">🫂 24/7 Emotional Support</span><span class="dashboard-card__status">ACTIVE ✓</span></div>
+            <div class="dashboard-card"><span class="dashboard-card__label">❤️ Girlfriend</span><span class="dashboard-card__status">PERMANENT ✓</span></div>
+          </div>
+
+          <div class="saisha-os__divider"></div>
+          <div style="display: flex; justify-content: space-between; font-size: var(--fs-small); color: var(--color-text-dim);">
+            <span>CEO: Saisha</span>
+            <span>Employee: Dudu (Needs supervision 😂)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 12: Clean / Health Department -->
+    <section class="chapter" id="ch12" data-environment="clean">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden">THE HEALTH DEPARTMENT</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          You Remember Things I Forget.
+        </h2>
+
+        <div class="card-grid anim-hidden anim-delay-2" style="margin: var(--space-md) 0;">
+          <div class="care-card">
+            <div class="care-card__title">Gastric Problems</div>
+            <div class="care-card__description">You always know exactly which medicine I need.</div>
+          </div>
+          <div class="care-card">
+            <div class="care-card__title">Vitamin B12</div>
+            <div class="care-card__description">Daily reminder without fail.</div>
+          </div>
+          <div class="care-card">
+            <div class="care-card__title">Vitamin D3</div>
+            <div class="care-card__description">Weekly track kept faithfully.</div>
+          </div>
+          <div class="care-card">
+            <div class="care-card__title">Classes & Meetings</div>
+            <div class="care-card__description">You manage my schedule better than Google Calendar.</div>
+          </div>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-secondary); line-height: 1.8;">
+          <p>Somehow you have a better database of my life than I do.</p>
+          <p style="color: var(--color-gold-soft); font-style: italic;">
+            "You remember because you genuinely care whether I'm okay. And I notice."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 13: Clean / Skincare Department -->
+    <section class="chapter" id="ch13" data-environment="clean">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">DERMATOLOGY PROTOCOL</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          Because Apparently Loving Me Wasn't Enough.
+        </h2>
+        <p class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold); font-style: italic;">
+          You had to fix my face too. 😂
+        </p>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-3" style="max-width: 560px; margin: var(--space-md) 0;">
+          <div class="care-card">
+            <div class="care-card__title">Face Wash</div>
+            <div class="care-card__description">Strictly approved by Mumma.</div>
+          </div>
+          <div class="care-card">
+            <div class="care-card__title">Serum</div>
+            <div class="care-card__description">For Dudu's oily stubborn skin.</div>
+          </div>
+          <div class="care-card" style="grid-column: 1 / -1;">
+            <div class="care-card__title">Moisturizer</div>
+            <div class="care-card__description">Because Dudu cannot be trusted alone in a pharmacy.</div>
+          </div>
+        </div>
+
+        <div class="dashboard-card anim-hidden-scale anim-delay-4" style="max-width: 480px; width: 100%;">
+          <div>
+            <span class="dashboard-card__label">Boyfriend Status:</span>
+            <div style="font-size: var(--fs-body); color: var(--color-warm-white);">Romantically loved.</div>
+          </div>
+          <span class="dashboard-card__status" style="color: var(--color-rose);">Dermatologically Supervised ✓</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 14: Golden / Birthday Gifts -->
+    <section class="chapter" id="ch14" data-environment="golden">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden">CELEBRATIONS</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          You Always Made My Birthday Special.
+        </h2>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-2" style="margin: var(--space-md) 0;">
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/photo frame.jpeg" alt="Photo frame gift from Saisha" loading="lazy">
+            </div>
+            <div class="memory-card__caption">Gift 01: Photo Frame — A frame holding memories that kept me smiling.</div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-card__media">
+              <img src="memories/precious birthday gift.jpeg" alt="Precious birthday gift" loading="lazy">
+            </div>
+            <div class="memory-card__caption">Gift 02: Precious Birthday Gift — Words written on glass, glowing on LED warm light.</div>
+          </div>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-secondary); line-height: 1.8;">
+          <p>You somehow managed to turn words into something I could hold in my hands.</p>
+          <p style="color: var(--color-gold-soft); font-style: italic;">
+            "But your gifts were never just things."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 18: Embers / The Apology -->
+    <section class="chapter" id="ch18" data-environment="ember">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden" style="color: #e07050;">TOTAL HONESTY</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title); color: #f0a070;">
+          I Owe You An Apology.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body); line-height: 2; color: var(--color-text-secondary); max-width: 580px; text-align: left;">
+          <p>I could make this website only about the sweet, shiny memories.</p>
+          <p>But that wouldn't be honest.</p>
+          <p>I hurt you. I cheated on you. I was still holding onto my past when I should have been fully present with you.</p>
+          <p>I was distant. I was unfair. I was careless.</p>
+          <p>I failed to celebrate you the way you deserved.</p>
+          <p style="color: var(--color-warm-white); font-weight: 500;">
+            And there were times when you loved me much better than I knew how to love you.
+          </p>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="margin: var(--space-sm) 0;">
+          <strong style="font-family: var(--font-serif); font-size: var(--fs-section-title); color: var(--color-rose);">
+            I'm truly sorry.
+          </strong>
+        </div>
+
+        <!-- Interactive Burning Regret Cards -->
+        <p class="anim-hidden anim-delay-4" style="font-size: var(--fs-small); color: var(--color-text-dim);">
+          🔥 Tap each regret card to let the fire clear the past:
+        </p>
+
+        <div class="burn-area anim-hidden-scale anim-delay-5">
+          <div class="burn-area__card-wrapper">
+            <div class="burning-card">
+              <div class="burning-card__text">🔥 REGRET</div>
+            </div>
+            <div class="burning-card__reveal">"I can't change this, but I carry the lesson."</div>
+          </div>
+
+          <div class="burn-area__card-wrapper">
+            <div class="burning-card">
+              <div class="burning-card__text">🔥 DISTANCE & NEGLECT</div>
+            </div>
+            <div class="burning-card__reveal">"I can learn to stay close and attentive."</div>
+          </div>
+
+          <div class="burn-area__card-wrapper">
+            <div class="burning-card">
+              <div class="burning-card__text">🔥 PAST MISTAKES</div>
+            </div>
+            <div class="burning-card__reveal">"I can do better. Every single day."</div>
+          </div>
+
+          <div class="burn-area__card-wrapper">
+            <div class="burning-card">
+              <div class="burning-card__text">🔥 THINGS I SHOULD HAVE DONE</div>
+            </div>
+            <div class="burning-card__reveal">"I will do them now. Starting with this."</div>
+          </div>
+        </div>
+
+        <div class="anim-hidden anim-delay-6" style="margin-top: var(--space-md); font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-dim); max-width: 520px; line-height: 1.8;">
+          <p>I know saying sorry doesn't magically erase what happened.</p>
+          <p>And your forgiveness doesn't make mistakes disappear.</p>
+          <p style="color: var(--color-warm-white);">
+            I can't change the past. But I can change what I do next.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 19: Dark Peace / Trust -->
+    <section class="chapter" id="ch19" data-environment="dark-peace">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">SANCTUARY</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          You Trusted Me With The Real You.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 1.9; color: var(--color-text-secondary); max-width: 540px;">
+          <p>You had reasons for hiding parts of your real life from people.</p>
+          <p>You were afraid people would take advantage of you.</p>
+          <p>You trusted me. And I broke that trust.</p>
+          <p>Your friends left. You were hurt.</p>
+          <p style="color: var(--color-text-dim);">And you had every single reason to leave me too.</p>
+        </div>
+
+        <h3 class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-section-title); color: var(--color-rose); margin: var(--space-md) 0;">
+          But you stayed.
+        </h3>
+
+        <div class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-dim); line-height: 1.8; max-width: 500px;">
+          <p>I will never use your staying as an excuse for what I did.</p>
+          <p style="color: var(--color-warm-white);">
+            I want it to be the reason I become someone genuinely worthy of your trust.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 20: Clown Timeline / Missed Anniversaries -->
+    <section class="chapter" id="ch20" data-environment="playful">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">CONFESSION OF A FOOL</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          I Was Really Bad At This. 🤡
+        </h2>
+        <p class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); color: var(--color-text-secondary);">
+          Every missed monthly milestone until now:
+        </p>
+
+        <!-- Clown Timeline Grid -->
+        <div class="clown-timeline anim-hidden-scale anim-delay-3">
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 1</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 2</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 3</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 4</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 5</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 6</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 7</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 8</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 9</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 10</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">Month 11</span></div>
+          <div class="clown-timeline__item"><span class="clown-timeline__emoji">🤡</span><span class="clown-timeline__label">1 Year</span></div>
+        </div>
+
+        <div class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 1.9; color: var(--color-text-secondary); max-width: 520px; margin-top: var(--space-md);">
+          <p>You had seen me celebrate these things in the past. You knew what I was capable of.</p>
+          <p>And still, you never demanded it or made me feel like I had to perform.</p>
+          <p style="color: var(--color-rose-soft); font-style: italic;">I regret not doing it sooner.</p>
+          <p style="color: var(--color-warm-white); font-size: var(--fs-section-title); margin-top: var(--space-sm);">
+            So today… I'm finally celebrating you properly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 21: Golden / 17 Months -->
+    <section class="chapter chapter--full" id="ch21" data-environment="golden">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">THE MILESTONE</span>
+
+        <!-- Animated 17 Counter -->
+        <div class="counter-display anim-hidden-scale anim-delay-1" style="text-align: center; margin: var(--space-sm) 0;">
+          <span class="counter-number" data-target="17" style="font-family: var(--font-serif); font-size: clamp(5rem, 15vw, 10rem); color: var(--color-gold); font-weight: 300; line-height: 1;">17</span>
+          <div style="letter-spacing: 0.3em; font-size: var(--fs-small); color: var(--color-text-dim); text-transform: uppercase;">Months of Us</div>
+        </div>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold-soft); font-style: italic;">
+          "Not perfect. Not easy. Not always smooth. But ours."
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="line-height: 2; color: var(--color-text-secondary); margin: var(--space-md) 0; font-family: var(--font-sans); font-size: var(--fs-body);">
+          <p>17 months of endless messages.</p>
+          <p>17 months of late night calls.</p>
+          <p>17 months of stupid inside jokes.</p>
+          <p>17 months of arguments and making up.</p>
+          <p>17 months of birthdays and caring.</p>
+          <p>17 months of actively choosing each other.</p>
+        </div>
+
+        <h3 class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-section-title); color: var(--color-warm-white);">
+          And we're still standing right here.
+        </h3>
+      </div>
+    </section>
+
+    <!-- CHAPTER 22: Minimal / Distance & Zero Hugs -->
+    <section class="chapter" id="ch22" data-environment="minimal">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">THE REALITY</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          17 Months. Zero Hugs.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-dim); max-width: 500px; line-height: 1.8;">
+          <p>We've spent 17 whole months together as a couple…</p>
+          <p>…and we've never yet stood in the same room.</p>
+        </div>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-3" style="max-width: 520px; margin: var(--space-md) 0;">
+          <div class="care-card" style="opacity: 0.8; text-align: center;">🔒 First Real Hug</div>
+          <div class="care-card" style="opacity: 0.8; text-align: center;">🔒 First In-Person Selfie</div>
+          <div class="care-card" style="opacity: 0.8; text-align: center;">🔒 First Proper Date</div>
+          <div class="care-card" style="opacity: 0.8; text-align: center;">🔒 First Evening Walk</div>
+        </div>
+
+        <p class="anim-hidden anim-delay-4" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold-soft); font-style: italic;">
+          Not lost. Not forgotten. Just patiently waiting for our time.
+        </p>
+      </div>
+    </section>
+
+    <!-- CHAPTER 23: Minimal / Photos Not Taken -->
+    <section class="chapter" id="ch23" data-environment="minimal">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden">UNWRITTEN PAGES</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title); text-align: center;">
+          My Favorite Picture Of Us Doesn't Exist Yet.
+        </h2>
+
+        <div class="card-grid card-grid--2col anim-hidden anim-delay-2" style="margin: var(--space-md) 0;">
+          <!-- Future Locked Memory Cards (Tap to reveal secret!) -->
+          <div class="future-memory" title="Tap to unlock">
+            <div class="future-memory__content">
+              <span class="future-memory__lock">🔒</span>
+              <div class="future-memory__title">First Together Selfie</div>
+              <div class="future-memory__status">Tap to check status</div>
+              <div class="future-memory__reveal">Reserved for the exact second we meet. ♡</div>
+            </div>
+          </div>
+
+          <div class="future-memory" title="Tap to unlock">
+            <div class="future-memory__content">
+              <span class="future-memory__lock">🔒</span>
+              <div class="future-memory__title">First Long Hug</div>
+              <div class="future-memory__status">Tap to check status</div>
+              <div class="future-memory__reveal">I am not letting you go for at least 10 minutes. ♡</div>
+            </div>
+          </div>
+
+          <div class="future-memory" title="Tap to unlock">
+            <div class="future-memory__content">
+              <span class="future-memory__lock">🔒</span>
+              <div class="future-memory__title">First Dinner Date</div>
+              <div class="future-memory__status">Tap to check status</div>
+              <div class="future-memory__reveal">Sitting across from each other, smiling like idiots. ♡</div>
+            </div>
+          </div>
+
+          <div class="future-memory" title="Tap to unlock">
+            <div class="future-memory__content">
+              <span class="future-memory__lock">🔒</span>
+              <div class="future-memory__title">Ordinary Day Together</div>
+              <div class="future-memory__status">Tap to check status</div>
+              <div class="future-memory__reveal">Just holding hands and doing nothing at all. ♡</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-rose-soft); font-style: italic; text-align: center;">
+          "Maybe that's the most beautiful part: we still have all our firsts ahead of us."
+        </p>
+      </div>
+    </section>
+
+    <!-- CHAPTER 24: Dawn / One Day -->
+    <section class="chapter" id="ch24" data-environment="dawn">
+      <div class="chapter__content chapter__content--centered">
+        <span class="ch-opening__date-range anim-hidden">A GLIMPSE OF THE FUTURE</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          One Day, The Screen Will Disappear.
+        </h2>
+
+        <div class="anim-hidden anim-delay-2" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: 2.2; color: var(--color-text-secondary); max-width: 540px; margin: var(--space-md) 0;">
+          <p>One day…</p>
+          <p>I won't have to hear your voice through a speaker.</p>
+          <p>I won't have to see you through glass.</p>
+          <p>I won't have to type <em>"I miss you."</em></p>
+          <p style="color: var(--color-warm-white); font-size: var(--fs-section-title);">Because you will simply be there.</p>
+        </div>
+
+        <div class="care-card anim-hidden anim-delay-3" style="max-width: 480px; text-align: center;">
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-dim); line-height: 1.8;">
+            I'll probably be nervous. You'll probably be nervous.<br>
+            We'll probably laugh. Maybe neither of us will know what to say at first.<br>
+            <span style="color: var(--color-rose-soft); font-style: italic; display: block; margin-top: 6px;">
+              And I'm probably not letting go anytime soon.
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 25: Dawn / The Promise -->
+    <section class="chapter" id="ch25" data-environment="dawn">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden">MY COMMITMENT</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title);">
+          I Can't Promise Perfection.
+        </h2>
+
+        <div class="card-grid anim-hidden anim-delay-2" style="margin: var(--space-md) 0;">
+          <div class="care-card">
+            <p style="font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-secondary);">
+              I can't promise I'll never make a mistake again.<br>
+              <strong style="color: var(--color-warm-white);">But I promise that I genuinely want to learn.</strong>
+            </p>
+          </div>
+          <div class="care-card">
+            <p style="font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-secondary);">
+              I can't give you back the anniversaries I missed.<br>
+              <strong style="color: var(--color-warm-white);">But I can stop taking any future moment for granted.</strong>
+            </p>
+          </div>
+          <div class="care-card" style="grid-column: 1 / -1;">
+            <p style="font-family: var(--font-serif); font-size: var(--fs-body); color: var(--color-text-secondary);">
+              I can't erase the times when I hurt you.<br>
+              <strong style="color: var(--color-rose-soft);">But I can become someone who makes loving me feel completely safe.</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="anim-hidden anim-delay-3" style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-gold-soft); font-style: italic; text-align: center; margin-top: var(--space-md);">
+          "I don't want you to stay just because you've already stayed this long.<br>
+          I want you to stay because the person I become makes you want to."
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 26: Golden Spotlight / Letter to Bubu -->
+    <section class="chapter" id="ch26" data-environment="golden">
+      <div class="chapter__content">
+        <span class="ch-opening__date-range anim-hidden" style="text-align: center;">WRITTEN FROM THE HEART</span>
+        <h2 class="anim-hidden anim-delay-1" style="font-family: var(--font-serif); font-size: var(--fs-chapter-title); text-align: center;">
+          To My Bubu
+        </h2>
+
+        <!-- Her Most Beautiful Picture -->
+        <div class="memory-card anim-hidden-scale anim-delay-1" style="max-width: 440px; margin: var(--space-md) auto var(--space-lg);">
+          <div class="memory-card__media">
+            <img src="memories/Her most beutiful pic.jpeg" alt="Her most beautiful picture" loading="lazy">
+          </div>
+          <div class="memory-card__caption">"To the most beautiful girl in the world."</div>
+        </div>
+
+        <!-- Handwritten Paper Styled Letter -->
+        <article class="letter anim-hidden-scale anim-delay-2">
+          <div class="letter__body">
+Bubu,
+
+If someone had told me back in February 2024 that the girl I accepted as my sworn sister would one day become the person I would love like this, I probably wouldn't have believed them.
+
+You entered my life so quietly. And somehow, you became one of the biggest parts of it.
+
+You've seen me at my best. You've seen me at my worst. You've seen the parts of me I'm proud of and the parts I wish I could change. And somehow, you still chose to stay.
+
+I know I haven't always loved you the way you deserved. I've made mistakes. I've hurt you. I've been distant. I've been unfair. I've taken things for granted. And there are moments I wish I could go back to and do differently.
+
+I'm sorry. Not because today is our anniversary. Not because I want to make this moment look good. But because you deserved better from me. And I want to become better.
+
+You have taken care of me in ways I will never forget. You've remembered my medicines. My B12. My D3. My gastric problems. My classes. My meetings. My skincare. My birthdays. My future.
+
+Sometimes I genuinely wonder if I'm your boyfriend or your most troublesome child.
+
+But honestly… I wouldn't trade your care for anything in this world.
+
+You've pushed me to study. You've pushed me to think about my future. You've made my birthdays special. You've made videos for me. You made me a website. You wrote me letters. You celebrated me. You've listened to me when I was falling apart. You've believed in me when I didn't really believe in myself. And you've loved me from a distance in a way that somehow still managed to feel close.
+
+We've never had the ordinary things couples get. No random walks. No sitting beside each other. No first picture together. No proper first date. No first hug.
+
+But somehow… we still built something. Something worth fighting for.
+
+And someday, I want the screen between us to disappear. I want our first picture. Our first hug. Our first date. Our first ordinary day together. I want the boring things too. Because with you, even ordinary sounds special.
+
+Today is 17 months. And for the first time, I don't just want to celebrate how long we've been together. I want to celebrate the person who stayed through it.
+
+You.
+
+Thank you for choosing me. Thank you for believing in me. Thank you for loving me. Thank you for being my Bubu. And thank you for letting me be your Dudu.
+
+I love you.
+Happy 17 months, Mumma.
+          </div>
+          <div class="letter__signature">From your Dudu. ❤️</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHAPTER 27: Final Cinematic Reveal -->
+    <section class="chapter chapter--full" id="ch27" data-environment="final">
+      <div class="chapter__content chapter__content--centered cinematic-sequence">
+        <span class="cinematic-sequence__date anim-hidden">FEBRUARY 2024</span>
+        <p class="cinematic-sequence__line anim-hidden anim-delay-1">I met you.</p>
+
+        <span class="cinematic-sequence__date anim-hidden anim-delay-2" style="margin-top: var(--space-md);">APRIL 5, 2025</span>
+        <p class="cinematic-sequence__line anim-hidden anim-delay-3">I chose you.</p>
+
+        <span class="cinematic-sequence__date anim-hidden anim-delay-4" style="margin-top: var(--space-md);">SEPTEMBER 5, 2026</span>
+        <p class="cinematic-sequence__line anim-hidden anim-delay-5" style="color: var(--color-gold); font-size: var(--fs-section-title);">17 months.</p>
+
+        <div class="anim-hidden anim-delay-6" style="margin: var(--space-lg) 0;">
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-text-dim);">One day…</p>
+          <p style="font-family: var(--font-serif); font-size: var(--fs-body-lg); color: var(--color-warm-white);">we'll finally meet.</p>
+        </div>
+
+        <div class="anim-hidden anim-delay-7">
+          <h1 class="cinematic-sequence__hero">HAPPY 17 MONTHS, BUBU ❤️</h1>
+          <p class="cinematic-sequence__subtitle">Still choosing you. Today, tomorrow, and every day after.</p>
+        </div>
+
+        <div class="anim-hidden anim-delay-8" style="margin-top: var(--space-xl);">
+          <button class="btn btn--ghost btn--small secret-heart-trigger" title="Psst... click 5 times for a secret confession">
+            Dudu & Bubu Forever ♡
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       SCRIPTS (Content, Systems, Engines, App)
+       ============================================ -->
+  <script src="js/content.js"></script>
+  <script src="js/particle-system.js"></script>
+  <script src="js/environment-engine.js"></script>
+  <script src="js/music-player.js"></script>
+  <script src="js/scroll-manager.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

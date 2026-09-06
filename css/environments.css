@@ -1,0 +1,219 @@
+/* ============================================
+   ENVIRONMENTS.CSS — Atmospheric Backgrounds
+   Each chapter's visual world
+   ============================================ */
+
+/* --- Particle Canvas (global) --- */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-particles);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--duration-environment) var(--ease-cinematic);
+}
+
+/* --- Environment Overlay --- */
+#environment-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-particles);
+  pointer-events: none;
+  transition: background var(--duration-environment) var(--ease-cinematic),
+              opacity var(--duration-environment) var(--ease-cinematic);
+}
+
+/* --- Spotlight --- */
+.spotlight {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-particles);
+  transition: opacity var(--duration-cinematic) var(--ease-cinematic),
+              transform var(--duration-cinematic) var(--ease-cinematic);
+}
+
+.spotlight--center {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.12) 0%, transparent 70%);
+}
+
+.spotlight--warm {
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(240, 230, 220, 0.06) 0%, transparent 70%);
+}
+
+/* --- Environment Base Backgrounds --- */
+body[data-environment="lock"] {
+  background: var(--color-bg-deep);
+}
+
+body[data-environment="night"] {
+  background: linear-gradient(180deg, var(--color-night-deep) 0%, #0a0f24 50%, var(--color-night-mid) 100%);
+}
+
+body[data-environment="twilight"] {
+  background: linear-gradient(180deg, #0f0a1a 0%, var(--color-twilight) 40%, #1e162e 100%);
+}
+
+body[data-environment="amber"] {
+  background: linear-gradient(180deg, #100e08 0%, var(--color-amber) 50%, #12100a 100%);
+}
+
+body[data-environment="cold"] {
+  background: linear-gradient(180deg, var(--color-cold) 0%, #060810 50%, #04060c 100%);
+}
+
+body[data-environment="void"] {
+  background: linear-gradient(180deg, var(--color-void) 0%, #030304 50%, var(--color-void) 100%);
+}
+
+body[data-environment="warming"] {
+  background: linear-gradient(180deg, #080608 0%, #0e0a08 50%, #12100c 100%);
+}
+
+body[data-environment="winter"] {
+  background: linear-gradient(180deg, var(--color-winter-blue) 0%, #0e1428 50%, #0a1020 100%);
+}
+
+body[data-environment="dreamy"] {
+  background: linear-gradient(180deg, #0c0a14 0%, #10101e 50%, #0a0a16 100%);
+}
+
+body[data-environment="playful"] {
+  background: linear-gradient(180deg, #0e0c14 0%, #141218 50%, #100e16 100%);
+}
+
+body[data-environment="dashboard"] {
+  background: linear-gradient(180deg, #08080c 0%, #0c0c12 50%, #08080e 100%);
+}
+
+body[data-environment="clean"] {
+  background: linear-gradient(180deg, #0e0c0a 0%, #121010 50%, #0e0c0c 100%);
+}
+
+body[data-environment="golden"] {
+  background: linear-gradient(180deg, #100e08 0%, #141008 50%, #0e0c06 100%);
+}
+
+body[data-environment="ember"] {
+  background: linear-gradient(180deg, var(--color-ember-dark) 0%, #100a06 50%, #080402 100%);
+}
+
+body[data-environment="dark-peace"] {
+  background: linear-gradient(180deg, #060608 0%, #0a0a0e 50%, #060608 100%);
+}
+
+body[data-environment="dawn"] {
+  background: linear-gradient(180deg, var(--color-dawn) 0%, #1e1610 50%, #141008 100%);
+}
+
+body[data-environment="minimal"] {
+  background: linear-gradient(180deg, #0a0a0c 0%, #0e0e10 50%, #0a0a0c 100%);
+}
+
+body[data-environment="final"] {
+  background: linear-gradient(180deg, #060506 0%, #0a0808 50%, #060506 100%);
+}
+
+/* --- Ambient Glows --- */
+.ambient-glow {
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--z-particles);
+  opacity: 0;
+  transition: opacity var(--duration-environment) var(--ease-cinematic);
+}
+
+.ambient-glow--heartbeat {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: radial-gradient(ellipse at center, rgba(196, 112, 126, 0.06) 0%, transparent 60%);
+  animation: heartbeatGlow 3s ease-in-out infinite;
+}
+
+.ambient-glow--warm-center {
+  width: 60vw;
+  height: 60vh;
+  top: 20%;
+  left: 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 230, 220, 0.04) 0%, transparent 70%);
+}
+
+.ambient-glow--ember {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: radial-gradient(ellipse at 50% 80%, rgba(180, 80, 40, 0.08) 0%, transparent 60%);
+}
+
+.ambient-glow--dawn {
+  width: 100vw;
+  height: 40vh;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to top, rgba(212, 165, 116, 0.06) 0%, transparent 100%);
+}
+
+/* --- Mist / Atmosphere Overlays --- */
+.atmosphere-mist {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-particles);
+  opacity: 0;
+  transition: opacity var(--duration-environment) var(--ease-cinematic);
+}
+
+.atmosphere-mist--winter {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(10, 14, 26, 0.3) 30%,
+    rgba(20, 25, 50, 0.15) 60%,
+    transparent 100%
+  );
+}
+
+.atmosphere-mist--warm {
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(240, 230, 220, 0.03) 0%,
+    transparent 70%
+  );
+}
+
+/* --- Heat Distortion (for ember environment) --- */
+.heat-distortion {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  pointer-events: none;
+  z-index: var(--z-particles);
+  opacity: 0;
+  transition: opacity var(--duration-environment) var(--ease-cinematic);
+  background: linear-gradient(to top, rgba(180, 80, 40, 0.03) 0%, transparent 100%);
+}
+
+/* --- Environment active states --- */
+body[data-environment="void"] .ambient-glow--heartbeat { opacity: 1; }
+body[data-environment="ember"] .ambient-glow--ember { opacity: 1; }
+body[data-environment="ember"] .heat-distortion { opacity: 1; }
+body[data-environment="dawn"] .ambient-glow--dawn { opacity: 1; }
+body[data-environment="winter"] .atmosphere-mist--winter { opacity: 1; }
+body[data-environment="warming"] .ambient-glow--warm-center { opacity: 1; }
+body[data-environment="final"] .atmosphere-mist--warm { opacity: 1; }
